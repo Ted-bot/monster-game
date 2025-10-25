@@ -5,10 +5,19 @@
 }
 
 #canvas1 {
-    background: url('./images/main/background.png');
+    background: url("../images/main/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
 
+#overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
