@@ -6,19 +6,20 @@ window.addEventListener('load', function() {
     canvas.width = 1280;
     canvas.height = 720;
 
-    ctx.fillStyle = 'transparent';
+    ctx.fillStyle = 'white';
     ctx.lineWidth = 3;
     ctx.strokeStyle = 'white';
     ctx.rect(20, 20, 150, 100);
 
     const game = new Game(canvas);
+    game.init();
 
-    game.render(ctx);
     console.log({game: game});
-
-
-
+    
     function animate() {
-
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        game.render(ctx);
+        window.requestAnimationFrame(animate);
     }
+    animate();
 })
