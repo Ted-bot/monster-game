@@ -4,14 +4,22 @@ export class Player {
         this.collisionX = this.game.width * 0.5;
         this.collisionY = this.game.height * 0.5;
         this.collisionRadius = 30;
-        this.speedPlayerX = 0;
-        this.speedPlayerY = 0;
+        this.speedX = 0;
+        this.speedY = 0;
         this.distanceX = 0;
         this.distanceY = 0;
         this.speedModifier = 5;
+        this.spriteWidth = 255;
+        this.spriteHeight = 255;
+        this.width = this.spriteWidth;
+        this.height = this.spriteHeight;
+        this.spriteX;
+        this.spriteY;
+        this.image = document.getElementById('bull');
     }
 
     draw(context){
+        context.drawImage(this.image, 0, 0, this.spriteWidth, this.spriteHeight, this.spriteX, this.spriteY, this.width, this.height);
         context.beginPath();
         context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
         context.save();
@@ -30,15 +38,20 @@ export class Player {
         this.distanceY = this.game.mouse.y - this.collisionY;
         const distance = Math.hypot(this.distanceY, this.distanceX);
         if(distance > this.speedModifier){
-            this.speedPlayerX = this.distanceX / distance || 0;
-            this.speedPlayerY = this.distanceY / distance || 0;
+            this.speedX = this.distanceX / distance || 0;
+            this.speedY = this.distanceY / distance || 0;
         } else {
-            this.speedPlayerX = 0;
-            this.speedPlayerY = 0;
+            this.speedX = 0;
+            this.speedY = 0;
         }
         
-        this.collisionX += this.speedPlayerX * this.speedModifier;
-        this.collisionY += this.speedPlayerY * this.speedModifier;
+        // update collision position
+        this.collisionX += this.speedX * this.speedModifier;
+        this.collisionY += this.speedY * this.speedModifier;
+
+        // update image position
+        this.spriteX = this.collisionX - this.width * 0.5;
+        this.spriteY = this.collisionY - this.height * 0.5 - 100;
 
         this.game.obstacles.forEach(obstacle => {
 
