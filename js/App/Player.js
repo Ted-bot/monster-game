@@ -69,7 +69,15 @@ export class Player {
 
         // update image position
         this.spriteX = this.collisionX - this.width * 0.5;
-        this.spriteY = this.collisionY - this.height * 0.5 - 100;
+        this.spriteY = this.collisionY - this.height * 0.5 - 100; // adjust position (heihgt) for correct shadow presenation
+
+        // horizontal boundaries
+        if(this.collisionX < 0 + this.collisionRadius) this.collisionX = this.collisionRadius;
+        else if(this.collisionX > this.game.width - this.collisionRadius) this.collisionX = this.game.width - this.collisionRadius; 
+
+        //vertical boundaries
+        if(this.collisionY < 0 + this.game.topMargin + this.collisionRadius) this.collisionY = 0 + this.game.topMargin + this.collisionRadius;
+        else if (this.collisionY > this.game.height - this.collisionRadius) this.collisionY = this.game.height - this.collisionRadius;
 
         this.game.obstacles.forEach(obstacle => {
 
