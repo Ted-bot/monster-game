@@ -15,11 +15,14 @@ window.addEventListener('load', function() {
     game.init();
 
     console.log({game: game});
-    
-    function animate() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        game.render(ctx);
+    let lastTime = 0;
+    function animate(timeStamp) {
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
+        console.log('delta time: ', deltaTime);
+        // ctx.clearRect(0,0,canvas.width, canvas.height);
+        game.render(ctx, deltaTime);
         window.requestAnimationFrame(animate);
     }
-    animate();
+    animate(0);
 })
