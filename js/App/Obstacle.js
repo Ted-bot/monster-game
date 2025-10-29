@@ -16,12 +16,14 @@ export class Obstacle {
     }
     draw(context){
         context.drawImage(this.image, this.frameX * this.spriteWidth,this.frameY * this.spriteHeight, this.spriteWidth,this.spriteHeight, this.spriteX, this.spriteY, this.width, this.height);
-        context.beginPath();
-        context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
-        context.save();
-        context.globalAlpha = 0.5;        
-        context.fill();
-        context.restore();
-        context.stroke();
+        if(this.game.debug){
+            context.beginPath();
+            context.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
+            context.save();
+            context.globalAlpha = 0.5;        
+            context.fill();
+            context.restore();
+            context.stroke();
+        }
     }
 }

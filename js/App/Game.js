@@ -6,6 +6,7 @@ export class Game {
         this.canvas = canvas;
         this.width = this.canvas.width;
         this.height = this.canvas.height;
+        this.debug = true;
         this.player = new Player(this);
         this.topMargin = 260;
         this.numberOfObstacles = 10;
@@ -32,6 +33,9 @@ export class Game {
                 this.mouse.x = e.offsetX;
                 this.mouse.y = e.offsetY;
             }
+        })
+        window.addEventListener('keydown', (e) => {
+            if(e.key == 'd') this.debug = !this.debug;
         })
     }
     render(context){
