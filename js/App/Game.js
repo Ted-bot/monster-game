@@ -17,7 +17,7 @@ export class Game {
         this.eggInterval = 500;
         this.topMargin = 260;
         this.numberOfObstacles = 10;
-        this.maxEggs = 50
+        this.maxEggs = 10;
         this.obstacles = [];
         this.eggs = [];
         this.gameObjects = [];
