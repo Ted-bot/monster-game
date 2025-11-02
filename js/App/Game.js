@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { Obstacle } from "./obstacle.js";
 import { Egg } from "./egg.js";
+import { Enemy } from "./enemy.js";
 
 export class Game {
     constructor(canvas){
@@ -16,10 +17,11 @@ export class Game {
         this.eggInterval = 500;
         this.topMargin = 260;
         this.numberOfObstacles = 10;
-        this.maxEggs = 10
+        this.maxEggs = 50
         this.obstacles = [];
         this.eggs = [];
         this.gameObjects = [];
+        this.enemies = [];
         this.mouse = {
             x: this.width * 0.5,
             y: this.height * 0.5,
@@ -50,16 +52,16 @@ export class Game {
     render(context, deltaTime){
         if(this.timer > this.interval){
             context.clearRect(0,0,this.width, this.height);
-            this.gameObjects = [...this.eggs, ...this.obstacles, this.player];
+            this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies];
             
             // sort by vertical position
             this.gameObjects.sort((a, b) => {
                 return a.collisionY - b.collisionY;
             })
 
-            this.gameObjects.forEach(obj => {
-                obj.draw(context);
-                obj.update();
+            this.gameObjects.forEach(object => {
+                object.draw(context);
+                object.update();
             });
             
 
@@ -87,7 +89,14 @@ export class Game {
     addEgg(){
         this.eggs.push(new Egg(this));
     }
+    addEnemy(){
+        this.enemies.push(new Enemy(this));
+        console.log("enemies",this.enemies);
+    }
     init(){
+        for(let i = 0; i < 3; i++){
+            this.addEnemy();
+        }
         let attempts = 0;
         while(this.obstacles.length < this.numberOfObstacles && attempts < 500){
             let testObstacle = new Obstacle(this);
