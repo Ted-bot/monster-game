@@ -11,8 +11,8 @@ export class Egg {
         this.spriteHeight = 135;
         this.width = this.spriteWidth;
         this.height = this.spriteHeight;
-        this.spriteX = this.collisionX - this.width * 0.5;
-        this.spriteY = this.collisionY - this.height * 0.5 - 30;
+        this.spriteX;
+        this.spriteY;
     }
     draw(context){
         context.drawImage(this.image, this.spriteX, this.spriteY);
@@ -25,5 +25,19 @@ export class Egg {
             context.restore();
             context.stroke();
         }
+    }
+    update(){
+        this.spriteX = this.collisionX - this.width * 0.5;
+        this.spriteY = this.collisionY - this.height * 0.5 - 30;
+        let collisionObjects = [this.game.player, ...this.game.obstacles];
+        collisionObjects.forEach(object => {
+            let [collision, distance, sumOfRadii, dx, dy] = this.game.checkCollision(this, object);
+            if(collision){
+                const unit_x = dx / distance;
+                const unit_y = dy / distance;
+                this.collisionX = object.collisionX + (sumOfRadii + 1) * unit_x;
+                this.collisionY = object.collisionY + (sumOfRadii + 1) * unit_y;
+            }
+        })
     }
 }

@@ -50,7 +50,10 @@ export class Game {
         if(this.timer > this.interval){
             context.clearRect(0,0,this.width, this.height);
             this.obstacles.forEach(obstacle => (obstacle.draw(context)));
-            this.eggs.forEach(egg => (egg.draw(context)));
+            this.eggs.forEach(egg => {
+                egg.draw(context);
+                egg.update();
+            });
             this.player.draw(context);
             this.player.update();
             // animate next frame
