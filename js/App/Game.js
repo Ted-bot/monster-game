@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { Obstacle } from "./obstacle.js";
 import { Egg } from "./egg.js";
 import { Enemy } from "./enemy.js";
+import { Larva } from "./larva.js";
 
 export class Game {
     constructor(canvas){
@@ -22,6 +23,7 @@ export class Game {
         this.eggs = [];
         this.gameObjects = [];
         this.enemies = [];
+        this.hatchlings = [];
         this.mouse = {
             x: this.width * 0.5,
             y: this.height * 0.5,
@@ -52,7 +54,7 @@ export class Game {
     render(context, deltaTime){
         if(this.timer > this.interval){
             context.clearRect(0,0,this.width, this.height);
-            this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies];
+            this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies, ...this.hatchlings];
             
             // sort by vertical position
             this.gameObjects.sort((a, b) => {
@@ -61,7 +63,7 @@ export class Game {
 
             this.gameObjects.forEach(object => {
                 object.draw(context);
-                object.update();
+                object.update(deltaTime);
             });
             
 
@@ -92,6 +94,10 @@ export class Game {
     addEnemy(){
         this.enemies.push(new Enemy(this));
         console.log("enemies",this.enemies);
+    }
+    removeGameObjects(){
+        this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);
+        this.hatchlings = this.hatchlings.filter(object => !object.markedForDeletion);
     }
     init(){
         for(let i = 0; i < 3; i++){
