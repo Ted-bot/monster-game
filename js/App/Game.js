@@ -24,6 +24,8 @@ export class Game {
         this.gameObjects = [];
         this.enemies = [];
         this.hatchlings = [];
+        this.lostHatchlings = 0;
+        this.score = 0;
         this.mouse = {
             x: this.width * 0.5,
             y: this.height * 0.5,
