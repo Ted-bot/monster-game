@@ -1,7 +1,7 @@
 import { Player } from "./player.js";
 import { Obstacle } from "./obstacle.js";
 import { Egg } from "./egg.js";
-import { Enemy } from "./enemy.js";
+import { Toadskin, Barkskin } from "./enemy.js";
 import { Larva } from "./larva.js";
 
 export class Game {
@@ -55,6 +55,7 @@ export class Game {
         window.addEventListener('keydown', (e) => {
             if(e.key == 'd') this.debug = !this.debug;
             else if(e.key == 'r') this.restart();
+            else if (e.key == 'c') console.log("Game Objects", this.gameObjects);
         })
     }
     render(context, deltaTime){
@@ -82,7 +83,6 @@ export class Game {
         if(this.eggTimer > this.eggInterval && this.eggs.length < this.maxEggs && !this.gameOver){
             this.addEgg();
             this.eggTimer = 0;
-            console.log(this.eggs);
         } else {
             this.eggTimer += deltaTime;
         }
@@ -133,7 +133,8 @@ export class Game {
         this.eggs.push(new Egg(this));
     }
     addEnemy(){
-        this.enemies.push(new Enemy(this));
+        if(Math.random() < 0.5) this.enemies.push(new Toadskin(this));
+        else this.enemies.push(new Barkskin(this));
     }
     removeGameObjects(){
         this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);

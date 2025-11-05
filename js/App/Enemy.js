@@ -3,16 +3,10 @@ export class Enemy {
         this.game = game;
         this.collisionRadius = 30;
         this.speedX = Math.random() * 3 + 0.5;
-        this.image = document.getElementById('toads');
-        this.spriteWidth = 140;
-        this.spriteHeight = 260;
-        this.width = this.spriteWidth;
-        this.height = this.spriteHeight;
-        this.collisionX = this.game.width + this.width + Math.random() * this.game.width * 0.5;
         this.collisionY = this.game.topMargin + (Math.random() * (this.game.height - this.game.topMargin) );
         this.spriteX;
         this.spriteY;
-        this.frameX = 0;
+        this.frameX = Math.floor(Math.random() * 2);
         this.frameY = Math.floor(Math.random() * 4);
     }
     draw(context){
@@ -34,6 +28,7 @@ export class Enemy {
         if(this.spriteX + this.width < 0 && !this.game.gameOver){
             this.collisionX = this.game.width + this.width + Math.random() * this.game.width * 0.5;
             this.collisionY = this.game.topMargin + (Math.random() * (this.game.height - this.game.topMargin) );
+            this.frameX = Math.floor(Math.random() * 2);
             this.frameY = Math.floor(Math.random() * 4);
         }
         let collisionObjects = [this.game.player, ...this.game.obstacles];
@@ -46,5 +41,29 @@ export class Enemy {
                 this.collisionY = object.collisionY + (sumOfRadii + 1) * unit_y;
             }
         });
+    }
+}
+
+export class Toadskin extends Enemy {
+    constructor(game){
+        super(game);
+        this.image = document.getElementById('toads');
+        this.spriteWidth = 140;
+        this.spriteHeight = 260;
+        this.width = this.spriteWidth;
+        this.height = this.spriteHeight;
+        this.collisionX = this.game.width + this.width + Math.random() * this.game.width * 0.5;
+    }
+}
+
+export class Barkskin extends Enemy {
+    constructor(game){
+        super(game);
+        this.image = document.getElementById('bark');
+        this.spriteWidth = 183;
+        this.spriteHeight = 280;
+        this.width = this.spriteWidth;
+        this.height = this.spriteHeight;
+        this.collisionX = this.game.width + this.width + Math.random() * this.game.width * 0.5;
     }
 }
