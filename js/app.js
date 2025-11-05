@@ -8,7 +8,7 @@ window.addEventListener('load', function() {
 
     ctx.fillStyle = 'white';
     ctx.lineWidth = 3;
-    ctx.strokeStyle = 'white';
+    ctx.strokeStyle = 'black';
     ctx.font = '40px Helvetica';
     ctx.textAlign = 'center';
 

@@ -24,6 +24,7 @@ export class Game {
         this.gameObjects = [];
         this.enemies = [];
         this.hatchlings = [];
+        this.particles = [];
         this.lostHatchlings = 0;
         this.score = 0;
         this.mouse = {
@@ -56,7 +57,7 @@ export class Game {
     render(context, deltaTime){
         if(this.timer > this.interval){
             context.clearRect(0,0,this.width, this.height);
-            this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies, ...this.hatchlings];
+            this.gameObjects = [...this.eggs, ...this.obstacles, this.player, ...this.enemies, ...this.hatchlings, ...this.particles];
             
             // sort by vertical position
             this.gameObjects.sort((a, b) => {
@@ -82,6 +83,15 @@ export class Game {
         } else {
             this.eggTimer += deltaTime;
         }
+
+        // draw status text
+        context.save();
+        context.textAlign = 'left';
+        context.fillText('score: ' + this.score, 25, 50);
+        if(this.debug){
+            context.fillText('Lost: ' + this.lostHatchlings, 25, 100);
+        }
+        context.restore();
     }
     checkCollision(a, b){
         const distanceX = a.collisionX - b.collisionX;
@@ -100,6 +110,7 @@ export class Game {
     removeGameObjects(){
         this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);
         this.hatchlings = this.hatchlings.filter(object => !object.markedForDeletion);
+        this.particles = this.particles.filter(object => !object.markedForDeletion);
     }
     init(){
         for(let i = 0; i < 3; i++){
