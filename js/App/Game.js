@@ -113,7 +113,7 @@ export class Game {
         this.particles = this.particles.filter(object => !object.markedForDeletion);
     }
     init(){
-        for(let i = 0; i < 3; i++){
+        for(let i = 0; i < 5; i++){
             this.addEnemy();
         }
         let attempts = 0;
