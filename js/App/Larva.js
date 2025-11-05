@@ -39,13 +39,13 @@ export class Larva {
             this.game.removeGameObjects();
 
             if(!this.game.gameOver) this.game.score++;
-            
+
             for(let i = 0; i < 3; i++){
                 this.game.particles.push(new FireFly(this.game, this.collisionX, this.collisionY, 'yellow'));
             }
         }
         // collision with objects
-        let collisionObjects = [this.game.player, ...this.game.obstacles];
+        let collisionObjects = [this.game.player, ...this.game.obstacles, ...this.game.eggs];
         collisionObjects.forEach(object => {
             let [collision, distance, sumOfRadii, dx, dy] = this.game.checkCollision(this, object);
             if(collision){

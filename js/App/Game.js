@@ -21,10 +21,10 @@ export class Game {
         this.maxEggs = 10;
         this.obstacles = [];
         this.eggs = [];
-        this.gameObjects = [];
         this.enemies = [];
         this.hatchlings = [];
         this.particles = [];
+        this.gameObjects = [];
         this.lostHatchlings = 0;
         this.score = 0;
         this.winningScore = 1;
@@ -54,6 +54,7 @@ export class Game {
         })
         window.addEventListener('keydown', (e) => {
             if(e.key == 'd') this.debug = !this.debug;
+            else if(e.key == 'r') this.restart();
         })
     }
     render(context, deltaTime){
@@ -133,12 +134,28 @@ export class Game {
     }
     addEnemy(){
         this.enemies.push(new Enemy(this));
-        console.log("enemies",this.enemies);
     }
     removeGameObjects(){
         this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);
         this.hatchlings = this.hatchlings.filter(object => !object.markedForDeletion);
         this.particles = this.particles.filter(object => !object.markedForDeletion);
+    }
+    restart(){
+        this.player.restart();
+        this.obstacles = [];
+        this.eggs = [];
+        this.enemies = [];
+        this.hatchlings = [];
+        this.particles = [];
+        this.mouse = {
+            x: this.width * 0.5,
+            y: this.height * 0.5,
+            pressed: false
+        }
+        this.score = 0;
+        this.lostHatchlings = 0;
+        this.gameOver = false;
+        this.init();
     }
     init(){
         for(let i = 0; i < 5; i++){

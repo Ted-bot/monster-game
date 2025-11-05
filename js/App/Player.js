@@ -19,6 +19,15 @@ export class Player {
         this.frameY = 0;
         this.image = document.getElementById('bull');
     }
+    restart(){
+        // update collision position
+       this.collisionX = this.game.width * 0.5;
+        this.collisionY = this.game.height * 0.5;
+
+        // update image position
+        this.spriteX = this.collisionX - this.width * 0.5;
+        this.spriteY = this.collisionY - this.height * 0.5 - 100; // adjust position (heihgt) for correct shadow presenation
+    }
     draw(context){
         context.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.spriteX, this.spriteY, this.width, this.height);
         if(this.game.debug){
