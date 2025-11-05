@@ -56,6 +56,7 @@ export class Game {
             if(e.key == 'd') this.debug = !this.debug;
             else if(e.key == 'r') this.restart();
             else if (e.key == 'c') console.log("Game Objects", this.gameObjects);
+            else if (e.key == 'f') this.toggleFullScreen();
         })
     }
     render(context, deltaTime){
@@ -140,6 +141,13 @@ export class Game {
         this.eggs = this.eggs.filter(egg => !egg.markedForDeletion);
         this.hatchlings = this.hatchlings.filter(object => !object.markedForDeletion);
         this.particles = this.particles.filter(object => !object.markedForDeletion);
+    }
+    toggleFullScreen(){
+        if(!document.fullscreenElement){
+            document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen){
+            document.exitFullscreen();
+        }
     }
     restart(){
         this.player.restart();

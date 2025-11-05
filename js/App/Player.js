@@ -17,6 +17,7 @@ export class Player {
         this.spriteY;
         this.frameX = 0;
         this.frameY = 0;
+        this.maxFrame = 58;
         this.image = document.getElementById('bull');
     }
     restart(){
@@ -60,6 +61,12 @@ export class Player {
         else if (angle < 1.96) this.frameY = 4;
         else if (angle < 2.74) this.frameY = 5;
 
+        // full animiation
+        if( this.frameX < this.maxFrame){
+            this.frameX++;
+        } else {
+            this.frameX = 0;
+        }
 
         const distance = Math.hypot(this.distanceY, this.distanceX);
         if(distance > this.speedModifier){
