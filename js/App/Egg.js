@@ -16,7 +16,7 @@ export class Egg {
         this.spriteX;
         this.spriteY;
         this.hatchTimer = 0;
-        this.hatchInterval = 3000;
+        this.hatchInterval = 10000;
         this.markedForDeletion = false;
     }
     draw(context){
@@ -48,7 +48,7 @@ export class Egg {
             }
         });
         // hatching
-        if(this.hatchTimer > this.hatchInterval){
+        if(this.hatchTimer > this.hatchInterval || this.collisionY < this.game.topMargin){
             this.game.hatchlings.push(new Larva(this.game, this.collisionX, this.collisionY));
             this.markedForDeletion = true;
             this.game.removeGameObjects();

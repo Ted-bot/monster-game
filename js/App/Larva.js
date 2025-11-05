@@ -1,4 +1,4 @@
-import { FireFly } from "./particle.js";
+import { FireFly, Spark } from "./particle.js";
 
 export class Larva {
     constructor(game, x ,y){
@@ -40,7 +40,6 @@ export class Larva {
             this.game.score++;
             for(let i = 0; i < 3; i++){
                 this.game.particles.push(new FireFly(this.game, this.collisionX, this.collisionY, 'yellow'));
-
             }
         }
         // collision with objects
@@ -60,6 +59,9 @@ export class Larva {
                 this.markedForDeletion = true;
                 this.game.removeGameObjects();
                 this.game.lostHatchlings++;
+                 for(let i = 0; i < 5; i++){
+                    this.game.particles.push(new Spark(this.game, this.collisionX, this.collisionY, 'red'));
+                }
             }
         })
     }
