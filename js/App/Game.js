@@ -1,8 +1,8 @@
-import { Player } from "./player.js";
-import { Obstacle } from "./obstacle.js";
-import { Egg } from "./egg.js";
-import { Toadskin, Barkskin } from "./enemy.js";
-import { Larva } from "./larva.js";
+import { Player } from "./Player.js";
+import { Obstacle } from "./Obstacle.js";
+import { Egg } from "./Egg.js";
+import { Toadskin, Barkskin } from "./Enemy.js";
+import { Larva } from "./Larva.js";
 
 export class Game {
     constructor(canvas){
