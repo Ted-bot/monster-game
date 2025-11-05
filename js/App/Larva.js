@@ -1,4 +1,4 @@
-import { FireFly, Spark } from "./particle.js";
+import { FireFly, Spark } from "./Particle.js";
 
 export class Larva {
     constructor(game, x ,y){
