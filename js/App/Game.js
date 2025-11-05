@@ -27,6 +27,8 @@ export class Game {
         this.particles = [];
         this.lostHatchlings = 0;
         this.score = 0;
+        this.winningScore = 1;
+        this.gameOver = false;
         this.mouse = {
             x: this.width * 0.5,
             y: this.height * 0.5,
@@ -76,7 +78,7 @@ export class Game {
         this.timer += deltaTime;
 
         // add eggs over time
-        if(this.eggTimer > this.eggInterval && this.eggs.length < this.maxEggs ){
+        if(this.eggTimer > this.eggInterval && this.eggs.length < this.maxEggs && !this.gameOver){
             this.addEgg();
             this.eggTimer = 0;
             console.log(this.eggs);
@@ -92,6 +94,32 @@ export class Game {
             context.fillText('Lost: ' + this.lostHatchlings, 25, 100);
         }
         context.restore();
+
+        // win / lose message
+        if(this.score >= this.winningScore){
+            this.gameOver = true;
+            context.save();
+            context.fillStyle = 'rgba(0,0,0,0.5)';
+            context.fillRect(0,0, this.width, this.height);
+            context.fillStyle = 'white';
+            context.textAlign = 'center';
+            context.shadowOffsetX = 4;
+            context.shadowOffsetY = 4;
+            context.shadowColor = 'black';
+            let message1;
+            let message2;
+            if(this.lostHatchlings <= 5){
+                message1 = "Bullseye !!!";
+                message2 = "You won from the Monsters";
+            } else {
+                message1 = "To Bad !";
+                message1 = "You lost " + this.lostHatchlings + " hatchlings, dont be a Weakling";
+            }
+            context.font = '50px Bangers';
+            context.fillText(message1, this.width * 0.5, this.height * 0.5);
+            context.fillText("Final score " + this.score + ". Press 'R' to restart game !", this.width * 0.5, this.height * 0.5 + 80);
+            context.restore();
+        }
     }
     checkCollision(a, b){
         const distanceX = a.collisionX - b.collisionX;

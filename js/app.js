@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
     ctx.fillStyle = 'white';
     ctx.lineWidth = 3;
     ctx.strokeStyle = 'black';
-    ctx.font = '40px Helvetica';
+    ctx.font = '40px Bangers';
     ctx.textAlign = 'center';
 
     ctx.rect(20, 20, 150, 100);

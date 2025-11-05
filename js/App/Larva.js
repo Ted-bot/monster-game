@@ -37,7 +37,9 @@ export class Larva {
         if(this.collisionY < this.game.topMargin){
             this.markedForDeletion = true;
             this.game.removeGameObjects();
-            this.game.score++;
+
+            if(!this.game.gameOver) this.game.score++;
+            
             for(let i = 0; i < 3; i++){
                 this.game.particles.push(new FireFly(this.game, this.collisionX, this.collisionY, 'yellow'));
             }
