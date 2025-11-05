@@ -6,7 +6,7 @@ export class Larva {
         this.collisionX =  x;
         this.collisionY = y;
         this.collisionRadius = 30;
-        this.image = document.getElementById('larva');
+        this.image = document.getElementById('larva_sprite');
         this.spriteWidth = 150;
         this.spriteHeight  = 150;
         this.width = this.spriteWidth;
@@ -16,6 +16,7 @@ export class Larva {
         this.speedY = 1 + Math.random();
         this.frameX = 0;
         this.frameY = Math.floor(Math.random() * 2);
+        this.maxFrame = 38;
     }
     draw(context){
         context.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.spriteX, this.spriteY, this.width, this.height);
@@ -44,6 +45,14 @@ export class Larva {
                 this.game.particles.push(new FireFly(this.game, this.collisionX, this.collisionY, 'yellow'));
             }
         }
+
+        // sprite animation
+        if( this.frameX < this.maxFrame){
+            this.frameX++;
+        } else {
+            this.frameX = 0;
+        }
+
         // collision with objects
         let collisionObjects = [this.game.player, ...this.game.obstacles, ...this.game.eggs];
         collisionObjects.forEach(object => {

@@ -100,7 +100,6 @@ export class Player {
             if(collision){
                 const unit_x = distanceX / distance;
                 const unit_y = distanceY / distance;
-                console.log({unit_x, unit_y});
                 this.collisionX = obstacle.collisionX + (sumOfRadii + 1) * unit_x;
                 this.collisionY = obstacle.collisionY + (sumOfRadii + 1) * unit_y;
             }

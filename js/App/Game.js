@@ -27,7 +27,7 @@ export class Game {
         this.gameObjects = [];
         this.lostHatchlings = 0;
         this.score = 0;
-        this.winningScore = 1;
+        this.winningScore = 30;
         this.gameOver = false;
         this.mouse = {
             x: this.width * 0.5,
